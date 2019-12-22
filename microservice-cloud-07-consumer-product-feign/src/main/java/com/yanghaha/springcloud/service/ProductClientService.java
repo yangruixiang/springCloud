@@ -1,6 +1,7 @@
 package com.yanghaha.springcloud.service;
 
 import com.yanghaha.springcloud.entities.Product;
+import com.yanghaha.springcloud.service.impl.ProductClientServiceFallBack;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +17,8 @@ import java.util.List;
  * @Date: 2019/12/20 14:05
  */
 //指定调用的服务 MICROSERVICE-PRODUCT
-@FeignClient(value = "MICROSERVICE-PRODUCT")
+@FeignClient(value = "MICROSERVICE-PRODUCT", fallback =
+        ProductClientServiceFallBack.class)
 public interface ProductClientService {
     @RequestMapping(value = "/product/get/{id}",method = RequestMethod.GET)
     Product get(Long id);
